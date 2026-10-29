@@ -1,64 +1,127 @@
 # Movie Database System
 
-## Project Overview
-The Movie Database System is a menu-driven application developed using Python and MySQL. It allows users to manage movie details, director information, and movie ratings through a simple command-line interface.
-
-## Technologies Used
-- Python
-- MySQL
-- MySQL Connector for Python
-- SQL
+A menu-driven movie database management application developed using Python and MySQL. It allows users to manage movie details, director information, and movie ratings through a command-line interface.
 
 ## Features
-- Add director details.
+
+- Add director information.
 - Add movies with their release year, genre, and director.
 - Add ratings for existing movies.
-- View all movies stored in the database.
-- View movie ratings.
+- View the list of movies stored in the database.
+- View movie reviews and ratings.
 - Validate user inputs and handle database errors.
 - Maintain relationships between directors, movies, and reviews using foreign keys.
 
-## Database Structure
+## Technologies Used
 
-The project uses a MySQL database named `moviedb` with three tables:
+- **Python** — Application logic and user interaction.
+- **MySQL** — Relational database management.
+- **MySQL Connector/Python** — Communication between Python and MySQL.
+- **SQL** — Database and table creation, insertion, and retrieval.
 
-**Directors**
-- Stores director IDs and names.
+## Project Structure
 
-**Movies**
-- Stores movie titles, release years, genres, and director names.
+```text
+Movie-Database-System/
+├── movie_database.py
+├── schema.sql
+└── README.md
+```
 
-**Reviews**
-- Stores movie titles and their ratings.
+## Database Design
 
-Foreign keys maintain relationships between the tables.
+The application uses a MySQL database named `moviedb`, containing three tables:
+
+### 1. Directors
+
+Stores director information.
+
+- `director_id` — Primary key; automatically generated.
+- `director_name` — Director's name; must be unique and cannot be NULL.
+
+### 2. Movies
+
+Stores movie details.
+
+- `title` — Primary key.
+- `release_year` — Movie release year.
+- `genre` — Movie genre.
+- `director_name` — Foreign key referencing the Directors table.
+
+### 3. Reviews
+
+Stores movie ratings.
+
+- `review_id` — Primary key; automatically generated.
+- `movie_title` — Foreign key referencing the Movies table.
+- `rating` — Integer rating restricted to the range 1–10.
 
 ## Prerequisites
-- Python installed on your computer.
-- MySQL Server installed and running.
-- MySQL Connector for Python.
 
-## Installation and Setup
+Before running the application, install:
 
-1. Download or clone this repository.
-2. Create a MySQL database named `moviedb`.
-3. Create the required tables: `Directors`, `Movies`, and `Reviews`, with the appropriate primary key and foreign key constraints.
-4. Install the required Python package:
+- Python 3
+- MySQL Server
+- MySQL Connector/Python
 
-   ```bash
-   pip install mysql-connector-python
-   ```
+Install the Python connector using:
 
-5. Update the database connection settings in `movie_database.py` with your own MySQL credentials.
-6. Run the application:
+```bash
+python -m pip install mysql-connector-python
+```
 
-   ```bash
-   python movie_database.py
-   ```
+## Setup and Execution
 
-## Learning Outcomes
-- Connecting Python applications to MySQL.
-- Executing SQL queries using Python.
-- Understanding primary keys and foreign keys.
-- Performing database insert and select operations.
-- Handling user input and database exceptions.
+### Step 1: Clone the repository
+
+```bash
+git clone https://github.com/Ekansh-Gupta-20/Movie-Database-System.git
+cd Movie-Database-System
+```
+
+Alternatively, download the repository as a ZIP file and extract it.
+
+### Step 2: Create the database and tables
+
+Open MySQL and execute the SQL script in `schema.sql`.
+
+For example, from a terminal in the project directory:
+
+```bash
+mysql -u root -p < schema.sql
+```
+
+Enter your MySQL password when prompted.
+
+**Note:** This command creates the database and tables for a fresh setup. It does not update tables that already exist.
+
+### Step 3: Configure the database connection
+
+Open `movie_database.py` and configure the connection settings in the `create_connection()` function to match your local MySQL setup.
+
+Keep your actual database password private. Do not commit passwords or other credentials to GitHub.
+
+### Step 4: Run the application
+
+```bash
+python movie_database.py
+```
+
+The application displays a menu with the following options:
+
+1. Add Director
+2. Add Movie
+3. Add Review
+4. View Movies
+5. View Reviews
+6. Exit
+
+Choose an option and follow the prompts displayed in the terminal.
+
+## Validation
+
+The application validates user input and handles database errors. The database schema also enforces foreign-key relationships and restricts ratings to values between 1 and 10.
+
+## Author
+
+Ekansh Gupta
